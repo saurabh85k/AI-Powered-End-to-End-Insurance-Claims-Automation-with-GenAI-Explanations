@@ -1,6 +1,7 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
 import Login from "./pages/login";
+import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Form from "./pages/Form";
 import ClaimDetails from "./pages/ClaimDetails";
@@ -11,8 +12,9 @@ function App() {
     <BrowserRouter>
       <Routes>
 
-        {/* LOGIN (OPEN) */}
+        {/* LOGIN AND REGISTER (OPEN) */}
         <Route path="/" element={<Login />} />
+        <Route path="/register" element={<Register />} />
 
         {/* PROTECTED ROUTES */}
         <Route path="/dashboard" element={
