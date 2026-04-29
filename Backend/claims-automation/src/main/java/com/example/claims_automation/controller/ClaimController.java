@@ -13,12 +13,13 @@ import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 @RestController
 @RequestMapping("/api/claims")
 @RequiredArgsConstructor
-@CrossOrigin(origins = "http://localhost:3000")
+@CrossOrigin(origins = "*")
 public class ClaimController {
 
     private final ClaimService claimService;
@@ -27,6 +28,11 @@ public class ClaimController {
     public ResponseEntity<Claim> createClaim(@RequestBody ClaimRequestDto dto) {
         Claim saved = claimService.saveClaim(dto);
         return new ResponseEntity<>(saved, HttpStatus.CREATED);
+    }
+
+    @GetMapping
+    public ResponseEntity<List<Claim>> getAllClaims() {
+        return ResponseEntity.ok(claimService.getAllClaims());
     }
 
     @PostMapping("/upload")
