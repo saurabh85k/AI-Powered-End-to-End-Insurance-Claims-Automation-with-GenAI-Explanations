@@ -1,0 +1,27 @@
+# Backend (Maven)
+Backend/target/
+Backend/.mvn/
+Backend/mvnw
+Backend/mvnw.cmd
+*.class
+
+# OCR Service
+ocr-service/venv/
+ocr-service/__pycache__/
+*.pyc
+
+# Uploads & generated files
+uploads/
+policy_files/
+
+# IDE
+.idea/
+.vscode/
+*.iml
+
+# Logs
+*.log
+
+# OS
+.DS_Store
+Thumbs.db
