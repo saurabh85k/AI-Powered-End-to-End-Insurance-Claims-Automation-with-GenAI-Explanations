@@ -7,6 +7,7 @@ import com.example.claims_automation.repository.ClaimRepository;
 import com.example.claims_automation.repository.PolicyHolderRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.core.io.ByteArrayResource;
+import org.springframework.data.domain.Sort;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -16,6 +17,7 @@ import org.springframework.util.LinkedMultiValueMap;
 import org.springframework.util.MultiValueMap;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.multipart.MultipartFile;
+import org.springframework.data.domain.Sort;
 
 import java.io.IOException;
 import java.nio.file.Files;
@@ -57,8 +59,12 @@ public class ClaimService {
     }
 
     public List<Claim> getAllClaims() {
-        return claimRepository.findAll();
+        return claimRepository.findAll(Sort.by(Sort.Direction.DESC, "id"));
     }
+
+//    public List<Claim> getAllClaims() {
+//        return claimRepository.findAll();
+//    }
 
     public Claim getClaimById(Long id) {
         return claimRepository.findById(id)

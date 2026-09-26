@@ -1,6 +1,8 @@
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 
+import Landing from "./pages/Landing";
 import Login from "./pages/login";
+import AdminLogin from "./pages/AdminLogin";
 import Register from "./pages/Register";
 import Dashboard from "./pages/Dashboard";
 import Form from "./pages/Form";
@@ -13,8 +15,10 @@ function App() {
     <BrowserRouter>
       <div style={{ display: "flex", flexDirection: "column", minHeight: "100vh" }}>
         <Routes>
-          {/* LOGIN AND REGISTER (OPEN) */}
-          <Route path="/" element={<Login />} />
+          {/* PUBLIC ROUTES */}
+          <Route path="/" element={<Landing />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/admin-login" element={<AdminLogin />} />
           <Route path="/register" element={<Register />} />
 
           {/* PROTECTED ROUTES */}

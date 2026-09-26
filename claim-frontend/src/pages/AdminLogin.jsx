@@ -2,24 +2,22 @@ import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import "./Auth.css";
 
-function Login() {
+function AdminLogin() {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleAdminLogin = (e) => {
     e.preventDefault();
 
-    const users = JSON.parse(localStorage.getItem("users")) || [];
-    const userExists = users.find(u => u.email === email && u.password === password);
-
-    if ((email === "admin@gmail.com" && password === "1234") || userExists) {
+    if (email === "admin@claimpilot.com" && password === "admin123") {
       setErrorMsg("");
       localStorage.setItem("auth", "true");
+      localStorage.setItem("role", "admin");
       navigate("/dashboard");
     } else {
-      setErrorMsg("Invalid credentials. Please try again.");
+      setErrorMsg("Invalid admin credentials.");
     }
   };
 
@@ -27,25 +25,25 @@ function Login() {
     <div className="auth-page">
       <div className="auth-card">
         <div className="auth-logo">
-          <div className="auth-logo-icon">✈️</div>
-          <h1 className="auth-brand">ClaimPilot</h1>
-          <p className="auth-subtitle">Your AI co-pilot for insurance claims</p>
+          <div className="auth-logo-icon">🛡️</div>
+          <h1 className="auth-brand">Admin Portal</h1>
+          <p className="auth-subtitle">ClaimPilot Administrator Access</p>
         </div>
 
         {errorMsg && <div className="auth-error">{errorMsg}</div>}
 
-        <form className="auth-form" onSubmit={handleLogin}>
-          <label className="auth-label">Email Address</label>
+        <form className="auth-form" onSubmit={handleAdminLogin}>
+          <label className="auth-label">Admin Email</label>
           <input
             className="auth-input"
             type="email"
-            placeholder="admin@gmail.com"
+            placeholder="admin@claimpilot.com"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
             required
           />
 
-          <label className="auth-label">Password</label>
+          <label className="auth-label">Admin Password</label>
           <input
             className="auth-input"
             type="password"
@@ -55,17 +53,17 @@ function Login() {
             required
           />
 
-          <button className="auth-btn" type="submit">
-            Sign In
+          <button className="auth-btn auth-btn-admin" type="submit">
+            Sign In as Admin
           </button>
         </form>
 
         <p className="auth-link">
-          Don't have an account? <Link to="/register">Register here</Link>
+          Not an admin? <Link to="/login">User Login</Link>
         </p>
 
         <div className="auth-demo">
-          Demo: <strong>admin@gmail.com / 1234</strong>
+          Demo: <strong>admin@claimpilot.com / admin123</strong>
         </div>
 
         <Link to="/" className="auth-home-link">← Back to Home</Link>
@@ -74,4 +72,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default AdminLogin;

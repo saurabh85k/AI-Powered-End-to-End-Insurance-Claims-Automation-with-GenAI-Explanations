@@ -1,77 +1,93 @@
 import { useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
-import MessageBanner from "../ui/MessageBanner";
+import "./Auth.css";
 
 function Register() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [successMsg, setSuccessMsg] = useState("");
-
+  const [errorMsg, setErrorMsg] = useState("");
   const navigate = useNavigate();
 
   const handleRegister = (e) => {
     e.preventDefault();
-    
-    // Basic local storage simulation for registration
+
+    if (!name || !email || !password) {
+      setErrorMsg("Please fill all fields");
+      return;
+    }
+
+    if (password.length < 4) {
+      setErrorMsg("Password must be at least 4 characters");
+      return;
+    }
+
     const users = JSON.parse(localStorage.getItem("users")) || [];
+    
+    if (users.find(u => u.email === email)) {
+      setErrorMsg("Email already registered. Please login.");
+      return;
+    }
+
     users.push({ name, email, password });
     localStorage.setItem("users", JSON.stringify(users));
-
-    setSuccessMsg("Registration Successful! Redirecting...");
-    setTimeout(() => {
-      navigate("/");
-    }, 1500);
+    setErrorMsg("");
+    localStorage.setItem("auth", "true");
+    navigate("/dashboard");
   };
 
   return (
-    <div className="auth-container animate-fade-in">
-      <div className="card" style={{ width: "100%", maxWidth: "400px", padding: "40px 30px", textAlign: "center" }}>
-        
-        <div style={{ marginBottom: "30px" }}>
-          <div style={{ fontSize: "3rem", marginBottom: "10px" }}>🛡️</div>
-          <h2 style={{ fontSize: "1.8rem", margin: "0 0 10px 0", color: "white" }}>Create Account</h2>
-          <p style={{ color: "var(--text-secondary)", margin: 0 }}>Join Insurance AI today</p>
+    <div className="auth-page">
+      <div className="auth-card">
+        <div className="auth-logo">
+          <div className="auth-logo-icon">✨</div>
+          <h1 className="auth-brand">Create Account</h1>
+          <p className="auth-subtitle">Join ClaimPilot today</p>
         </div>
 
-        <MessageBanner type="success" message={successMsg} />
+        {errorMsg && <div className="auth-error">{errorMsg}</div>}
 
-        <form onSubmit={handleRegister} style={{ textAlign: "left" }}>
-          
-          <label style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginLeft: "5px" }}>Full Name</label>
+        <form className="auth-form" onSubmit={handleRegister}>
+          <label className="auth-label">Full Name</label>
           <input
+            className="auth-input"
             type="text"
             placeholder="John Doe"
-            required
+            value={name}
             onChange={(e) => setName(e.target.value)}
+            required
           />
 
-          <label style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginLeft: "5px", marginTop: "10px", display: "block" }}>Email Address</label>
+          <label className="auth-label">Email Address</label>
           <input
+            className="auth-input"
             type="email"
             placeholder="john@example.com"
-            required
+            value={email}
             onChange={(e) => setEmail(e.target.value)}
+            required
           />
 
-          <label style={{ fontSize: "0.85rem", color: "var(--text-secondary)", marginLeft: "5px", marginTop: "10px", display: "block" }}>Password</label>
+          <label className="auth-label">Password</label>
           <input
+            className="auth-input"
             type="password"
             placeholder="••••••••"
-            required
+            value={password}
             onChange={(e) => setPassword(e.target.value)}
+            required
           />
 
-          <button type="submit" style={{ width: "100%", marginTop: "20px", height: "45px" }}>
+          <button className="auth-btn" type="submit">
             Register
           </button>
-
         </form>
 
-        <p style={{ fontSize: "0.9rem", color: "var(--text-secondary)", marginTop: "25px" }}>
-          Already have an account? <Link to="/" style={{ color: "var(--accent-hover)", fontWeight: "500" }}>Log In</Link>
+        <p className="auth-link">
+          Already have an account? <Link to="/login">Log In</Link>
         </p>
 
+        <Link to="/" className="auth-home-link">← Back to Home</Link>
       </div>
     </div>
   );

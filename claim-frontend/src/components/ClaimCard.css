@@ -1,0 +1,168 @@
+/* ============================================
+   ClaimCard Styles
+   ============================================ */
+
+.claim-card {
+  background: rgba(30, 41, 59, 0.5);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 18px;
+  padding: 20px;
+  cursor: pointer;
+  transition: all 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  position: relative;
+  overflow: hidden;
+}
+
+.claim-card::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: #64748b;
+  opacity: 0.8;
+}
+
+.claim-card:hover {
+  transform: translateY(-5px);
+  border-color: rgba(96, 165, 250, 0.4);
+  box-shadow: 0 20px 45px rgba(0, 0, 0, 0.4);
+}
+
+/* Status-based color borders */
+.claim-card.card-approve::before {
+  background: linear-gradient(90deg, #22c55e, #4ade80);
+}
+
+.claim-card.card-reject::before {
+  background: linear-gradient(90deg, #ef4444, #f87171);
+}
+
+.claim-card.card-flag::before {
+  background: linear-gradient(90deg, #f59e0b, #fbbf24);
+}
+
+.claim-card.card-processing::before {
+  background: linear-gradient(90deg, #3b82f6, #60a5fa);
+}
+
+/* Hover glow per status */
+.claim-card.card-approve:hover {
+  border-color: rgba(34, 197, 94, 0.5);
+  box-shadow: 0 20px 45px rgba(34, 197, 94, 0.2);
+}
+
+.claim-card.card-reject:hover {
+  border-color: rgba(239, 68, 68, 0.5);
+  box-shadow: 0 20px 45px rgba(239, 68, 68, 0.2);
+}
+
+.claim-card.card-flag:hover {
+  border-color: rgba(245, 158, 11, 0.5);
+  box-shadow: 0 20px 45px rgba(245, 158, 11, 0.2);
+}
+
+/* HEADER */
+.claim-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.claim-status-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 12px;
+  border-radius: 999px;
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+}
+
+.card-approve .claim-status-badge {
+  background: rgba(34, 197, 94, 0.15);
+  color: #4ade80;
+  border: 1px solid rgba(34, 197, 94, 0.3);
+}
+
+.card-reject .claim-status-badge {
+  background: rgba(239, 68, 68, 0.15);
+  color: #f87171;
+  border: 1px solid rgba(239, 68, 68, 0.3);
+}
+
+.card-flag .claim-status-badge {
+  background: rgba(245, 158, 11, 0.15);
+  color: #fbbf24;
+  border: 1px solid rgba(245, 158, 11, 0.3);
+}
+
+.card-processing .claim-status-badge {
+  background: rgba(59, 130, 246, 0.15);
+  color: #60a5fa;
+  border: 1px solid rgba(59, 130, 246, 0.3);
+}
+
+.claim-id {
+  font-size: 0.8rem;
+  color: #64748b;
+  font-weight: 600;
+}
+
+/* TITLE */
+.claim-card-title {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0;
+  color: #ffffff;
+  line-height: 1.3;
+}
+
+/* DETAILS */
+.claim-card-details {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.claim-detail-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 0.85rem;
+}
+
+.claim-detail-label {
+  color: #94a3b8;
+  font-weight: 500;
+}
+
+.claim-detail-value {
+  color: #e2e8f0;
+  font-weight: 600;
+}
+
+/* FOOTER */
+.claim-card-footer {
+  margin-top: 4px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+}
+
+.claim-view-link {
+  font-size: 0.85rem;
+  color: #60a5fa;
+  font-weight: 600;
+  transition: color 0.2s;
+}
+
+.claim-card:hover .claim-view-link {
+  color: #a78bfa;
+}
